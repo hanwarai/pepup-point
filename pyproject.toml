@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "pepup-point"
+version = "0.1.0"
+description = ""
+authors = ["TSUKAMOTO Tetsuo <tsukamoto@iret.co.jp>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+selenium = "^4.20.0"
+bs4 = "^0.0.2"
+playwright = "^1.43.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
