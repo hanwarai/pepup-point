@@ -43,7 +43,9 @@ jobs:
           pip install poetry
 
       - name: Install dependencies
-        run: poetry install
+        run: |
+          poetry install
+          poetry run playwright install
 
       - name: main.py
         env:
