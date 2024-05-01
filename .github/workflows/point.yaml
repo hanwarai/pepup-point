@@ -21,7 +21,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
-        id: setup_python ${{ env.PYTHON_VERSION }}
+        id: setup_python
         with:
           python-version: ${{ env.PYTHON_VERSION }}
 
