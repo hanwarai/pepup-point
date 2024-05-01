@@ -45,7 +45,7 @@ jobs:
       - name: Install dependencies
         run: |
           poetry install
-          poetry run playwright install
+          poetry run playwright install chromium
 
       - name: main.py
         env:
