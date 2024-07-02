@@ -16,7 +16,8 @@ with sync_playwright() as p:
     # ユーザ名、パスワードをセット
     page.get_by_placeholder('登録したEメールアドレス').fill(USERNAME)
     page.get_by_placeholder('8文字以上のパスワード').fill(PASSWORD)
-    page.get_by_role("button", name="ログイン").click()
+    page.click('input[type="submit"]')
+    # print("Login Success")
 
     for num in range(1, 3):
 
@@ -24,15 +25,16 @@ with sync_playwright() as p:
         page.goto("https://pepup.life/articles?page=" + str(num))
 
         # 健康記事の一覧
-        ul = page.inner_html('ul[data-testid="article-list"]')
+        ul = page.inner_html('section > div')
         soup = BeautifulSoup(ul, 'html.parser')
 
         # ポイントのある記事
-        for article in soup.find_all('a'):
-            href = article.get('href')
-            div_points = article.css.select('div[data-testid="article-points"]')
+        for article in soup.find_all('article'):
+            href = article.select_one('a').get('href')
+            div_points = article.select_one('div.gap-2 > div.gap-1 > div.gap-1:nth-child(2) > span').text
+            # print(href, div_points)
 
-            if len(div_points) > 0:
+            if div_points != "獲得済み":
                 print(href)
 
                 # ポイントゲット
