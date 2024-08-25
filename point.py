@@ -3,8 +3,8 @@ from bs4 import BeautifulSoup
 import os
 
 # secretsに登録した環境変数の呼び出し
-USERNAME = os.environ.get("USERNAME")
-PASSWORD = os.environ.get("PASSWORD")
+USERNAME = os.environ.get("PEPUP_USERNAME")
+PASSWORD = os.environ.get("PEPUP_PASSWORD")
 
 with sync_playwright() as p:
     browser = p.chromium.launch()
@@ -20,19 +20,20 @@ with sync_playwright() as p:
     # print("Login Success")
 
     for num in range(1, 3):
+        print(num)
 
         # 健康記事
         page.goto("https://pepup.life/articles?page=" + str(num))
 
         # 健康記事の一覧
-        ul = page.inner_html('section > div')
+        ul = page.inner_html('main > div > div > section > div')
         soup = BeautifulSoup(ul, 'html.parser')
 
         # ポイントのある記事
         for article in soup.find_all('article'):
             href = article.select_one('a').get('href')
             div_points = article.select_one('div.gap-2 > div.gap-1 > div.gap-1:nth-child(2) > span').text
-            # print(href, div_points)
+            print(href, div_points)
 
             if div_points != "獲得済み":
                 print(href)
