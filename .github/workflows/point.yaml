@@ -49,6 +49,6 @@ jobs:
 
       - name: main.py
         env:
-          USERNAME: ${{ secrets.USERNAME }}
-          PASSWORD: ${{ secrets.PASSWORD }}
+          PEPUP_USERNAME: ${{ secrets.PEPUP_USERNAME }}
+          PEPUP_PASSWORD: ${{ secrets.PEPUP_PASSWORD }}
         run: poetry run python point.py
