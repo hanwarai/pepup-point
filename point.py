@@ -26,7 +26,7 @@ with sync_playwright() as p:
         page.goto("https://pepup.life/articles?page=" + str(num))
 
         # 健康記事の一覧
-        ul = page.inner_html('main > div > div > section > div')
+        ul = page.inner_html('section[aria-labelledby=":r1:-articles"] > div')
         soup = BeautifulSoup(ul, 'html.parser')
 
         # ポイントのある記事
