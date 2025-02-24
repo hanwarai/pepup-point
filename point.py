@@ -17,7 +17,7 @@ with sync_playwright() as p:
     page.get_by_placeholder('登録したEメールアドレス').fill(USERNAME)
     page.get_by_placeholder('8文字以上のパスワード').fill(PASSWORD)
     page.click('input[type="submit"]')
-    # print("Login Success")
+    print("Login Success")
 
     for num in range(1, 3):
         print(num)
@@ -32,15 +32,15 @@ with sync_playwright() as p:
         # ポイントのある記事
         for article in soup.find_all('article'):
             href = article.select_one('a').get('href')
-            div_points = article.select_one('div.gap-2 > div.gap-1 > div.gap-1:nth-child(2) > span').text
-            print(href, div_points)
+            div_points = article.select_one('div.gap-2 > div.gap-1 > div.gap-1:nth-child(2) > span')
+            if div_points is not None:
+                print(href, div_points.text)
+                if div_points.text != "獲得済み":
+                    print(href)
 
-            if div_points != "獲得済み":
-                print(href)
-
-                # ポイントゲット
-                page.goto('https://pepup.life' + href)
-                page.get_by_role("button", name="参考になった").click()
-                page.get_by_role("button", name="ポイントをもらう！").click()
+                    # ポイントゲット
+                    page.goto('https://pepup.life' + href)
+                    page.get_by_role("button", name="参考になった").click()
+                    page.get_by_role("button", name="ポイントをもらう！").click()
 
     browser.close()
